@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import '../globals.css';
+
+const { env } = process;
 
 import { JetBrains_Mono } from 'next/font/google';
 
@@ -36,9 +39,18 @@ export default async function RootLayout({
 
   return (
     <html lang={lang}>
-      <head>
-        <meta name="google-adsense-account" content="ca-pub-4108962150005369" />
-      </head>
+      {
+        env.NODE_ENV === 'production' && <>
+          <head>
+            <Script
+              defer
+              src="https://umami.byfruits.dev/script.js"
+              data-website-id="eaa9331e-14e6-4b4d-aa55-7ed89cb7bd9a"
+            />
+            <meta name="google-adsense-account" content="ca-pub-4108962150005369" />
+          </head>
+        </>
+      }
       <body className={`text-[#0D1117] dark:text-[#F8F8F8] bg-[#F8F8F8] dark:bg-[#0D1117] ${JetBrainsMono.className} antialiased`} >
         <SnowComponent months={[1, 11, 12]} particleNumberByMonthPosition={[50, 100, 450]} idChristmasHat="personalDescription" />
 
